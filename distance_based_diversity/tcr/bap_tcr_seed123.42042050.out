@@ -1,0 +1,89 @@
+Running BAP with embedding: catELMo_4_layers_1024 split: tcr seed: 123 fraction: 1.0
+Loading embeddings from: data/pairs7_embeds.pkl
+Total pairs: 10500
+Embedding dim: 2048
+================check Overlapping========================
+number of overlapping tcrs:  0
+number of overlapping epitopes:  223
+train size: 8402 test size: 2098
+Model: "model"
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_1 (InputLayer)            [(None, 2048)]       0                                            
+__________________________________________________________________________________________________
+input_2 (InputLayer)            [(None, 2048)]       0                                            
+__________________________________________________________________________________________________
+dense (Dense)                   (None, 2048)         4196352     input_1[0][0]                    
+__________________________________________________________________________________________________
+dense_1 (Dense)                 (None, 2048)         4196352     input_2[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization (BatchNorma (None, 2048)         8192        dense[0][0]                      
+__________________________________________________________________________________________________
+batch_normalization_1 (BatchNor (None, 2048)         8192        dense_1[0][0]                    
+__________________________________________________________________________________________________
+dropout (Dropout)               (None, 2048)         0           batch_normalization[0][0]        
+__________________________________________________________________________________________________
+dropout_1 (Dropout)             (None, 2048)         0           batch_normalization_1[0][0]      
+__________________________________________________________________________________________________
+tf.nn.silu (TFOpLambda)         (None, 2048)         0           dropout[0][0]                    
+__________________________________________________________________________________________________
+tf.nn.silu_1 (TFOpLambda)       (None, 2048)         0           dropout_1[0][0]                  
+__________________________________________________________________________________________________
+concatenate (Concatenate)       (None, 4096)         0           tf.nn.silu[0][0]                 
+                                                                 tf.nn.silu_1[0][0]               
+__________________________________________________________________________________________________
+dense_2 (Dense)                 (None, 1024)         4195328     concatenate[0][0]                
+__________________________________________________________________________________________________
+batch_normalization_2 (BatchNor (None, 1024)         4096        dense_2[0][0]                    
+__________________________________________________________________________________________________
+dropout_2 (Dropout)             (None, 1024)         0           batch_normalization_2[0][0]      
+__________________________________________________________________________________________________
+tf.nn.silu_2 (TFOpLambda)       (None, 1024)         0           dropout_2[0][0]                  
+__________________________________________________________________________________________________
+dense_3 (Dense)                 (None, 1)            1025        tf.nn.silu_2[0][0]               
+==================================================================================================
+Total params: 12,609,537
+Trainable params: 12,599,297
+Non-trainable params: 10,240
+__________________________________________________________________________________________________
+Epoch 1/50
+60/60 - 7s - loss: 0.7816 - AUC: 0.6219 - accuracy: 0.5881 - val_loss: 0.6632 - val_AUC: 0.6484 - val_accuracy: 0.5981
+Epoch 2/50
+60/60 - 6s - loss: 0.6723 - AUC: 0.7057 - accuracy: 0.6461 - val_loss: 0.6590 - val_AUC: 0.6847 - val_accuracy: 0.5945
+Epoch 3/50
+60/60 - 6s - loss: 0.6407 - AUC: 0.7322 - accuracy: 0.6670 - val_loss: 0.6510 - val_AUC: 0.7055 - val_accuracy: 0.6040
+Epoch 4/50
+60/60 - 6s - loss: 0.6140 - AUC: 0.7538 - accuracy: 0.6855 - val_loss: 0.6262 - val_AUC: 0.7206 - val_accuracy: 0.6243
+Epoch 5/50
+60/60 - 6s - loss: 0.6040 - AUC: 0.7620 - accuracy: 0.6885 - val_loss: 0.6198 - val_AUC: 0.7222 - val_accuracy: 0.6421
+Epoch 6/50
+60/60 - 6s - loss: 0.5743 - AUC: 0.7823 - accuracy: 0.7063 - val_loss: 0.6274 - val_AUC: 0.7216 - val_accuracy: 0.6338
+Epoch 7/50
+60/60 - 6s - loss: 0.5587 - AUC: 0.7960 - accuracy: 0.7225 - val_loss: 0.6112 - val_AUC: 0.7278 - val_accuracy: 0.6671
+Epoch 8/50
+60/60 - 6s - loss: 0.5465 - AUC: 0.8037 - accuracy: 0.7258 - val_loss: 0.6373 - val_AUC: 0.7323 - val_accuracy: 0.6421
+Epoch 9/50
+60/60 - 6s - loss: 0.5306 - AUC: 0.8121 - accuracy: 0.7290 - val_loss: 0.6062 - val_AUC: 0.7390 - val_accuracy: 0.6766
+Epoch 10/50
+60/60 - 6s - loss: 0.5201 - AUC: 0.8216 - accuracy: 0.7409 - val_loss: 0.6092 - val_AUC: 0.7384 - val_accuracy: 0.6718
+Epoch 11/50
+60/60 - 6s - loss: 0.5046 - AUC: 0.8325 - accuracy: 0.7478 - val_loss: 0.6267 - val_AUC: 0.7303 - val_accuracy: 0.6504
+Epoch 12/50
+60/60 - 6s - loss: 0.5149 - AUC: 0.8262 - accuracy: 0.7408 - val_loss: 0.6478 - val_AUC: 0.7245 - val_accuracy: 0.6516
+Epoch 13/50
+60/60 - 6s - loss: 0.4932 - AUC: 0.8404 - accuracy: 0.7565 - val_loss: 0.6090 - val_AUC: 0.7422 - val_accuracy: 0.6849
+Epoch 14/50
+60/60 - 5s - loss: 0.4841 - AUC: 0.8467 - accuracy: 0.7625 - val_loss: 0.6106 - val_AUC: 0.7400 - val_accuracy: 0.6754
+Restoring model weights from the end of the best epoch.
+Epoch 00014: early stopping
+================Performance========================
+catELMo_4_layers_1024_tcr_seed_123_fraction_1.0AUC: 0.7519286782113208
+precision_recall_fscore_macro (0.6926593212591226, 0.688830524416898, 0.687544313605099, None)
+acc is 0.6892278360343184
+precision1 is 0.7169811320754716
+precision0 is 0.6683375104427736
+recall1 is 0.6193672099712368
+recall0 is 0.7582938388625592
+f1macro is 0.687544313605099
+f1micro is 0.6892278360343184
